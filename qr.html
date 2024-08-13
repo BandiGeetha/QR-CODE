@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    
+    <style>
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .qr-img {
+            display: none;
+            margin-top: 20px;
+        }
+        .container.active .qr-img {
+            display: block;
+        }
+        .generate-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .qr-input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: calc(100% - 22px); /* Adjust based on padding */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>QR Code Generator</h1>
+            <p>Generate a text QR code</p>
+        </div>
+        <div class="input-form">
+            <input type="text" class="qr-input" placeholder="Enter the QR code text">
+            <button class="generate-btn">Generate QR Code</button>
+        </div>
+        <div class="qr-code">
+            <img alt="QR Code" height="150px" class="qr-img"> <!-- Removed src attribute initially -->
+        </div>
+    </div>
+    <script>
+        var container = document.querySelector(".container");
+        var generateBtn = document.querySelector(".generate-btn");
+        var qrInput = document.querySelector(".qr-input");
+        var qrImg = document.querySelector(".qr-img");
+
+        generateBtn.onclick = function() {
+            if (qrInput.value.length > 0) {
+                container.classList.add("active");
+                qrImg.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + encodeURIComponent(qrInput.value);
+            } else {
+                container.classList.remove("active");
+                qrImg.src = "";
+            }
+        };
+    </script>
+</body>
+</html>
